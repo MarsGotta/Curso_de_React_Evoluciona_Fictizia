@@ -1,15 +1,16 @@
 import React from "react";
 
+// Material UI Dependencies:
+import TextField from '@material-ui/core/TextField';
 
 const AppSearch = ({handleSearch}) => {
 
     const handleIputSearch = (event) => {
-        // event.persist();
         handleSearch(event);
     }
 
   return (
-    <input type="text" onChange={event => handleIputSearch(event)}/>
+    <TextField id="standard-basic" label="Buscador" onChange={event => handleIputSearch(event)}/>
   );
 };
 

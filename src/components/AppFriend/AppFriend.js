@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 // Material UI Dependencies:
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,11 +13,13 @@ import { green, red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
+import Collapse from '@material-ui/core/Collapse';
 import ShareIcon from "@material-ui/icons/Share";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,12 +33,26 @@ const useStyles = makeStyles((theme) => ({
   inactive: {
     backgroundColor: red[500],
   },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+    transition: 'transform ease .3s',
+  },
+  expandClose: {
+    transform: 'rotate(0deg)',
+    transition: 'transform ease .3s',
+  },
   active: {
     backgroundColor: green[500],
   },
 }));
 
 const AppFriend = ({ data }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   const classes = useStyles();
   const {
     about,
@@ -51,6 +67,7 @@ const AppFriend = ({ data }) => {
   } = data;
   const iconActive = isActive ? <Videocam /> : <VideocamOff />;
   const classActive = isActive ? "active" : "inactive";
+  const styleExpanded = expanded ? "expandOpen" : "expandClose";
 
   return (
     <Card className={classes.root}>
@@ -83,19 +100,28 @@ const AppFriend = ({ data }) => {
             <ListItemText primary="Dirección" secondary={address} />
           </ListItem>
           <Divider />
-          <ListItem>
-            <ListItemText primary="Info" secondary={about} />
-          </ListItem>
+          
         </List>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton
+          className={classes[styleExpanded]}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="Mostrar Info"
+        >
+          <ExpandMoreIcon />
         </IconButton>
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <List>
+            <ListItem>
+              <ListItemText primary="Info" secondary={about} />
+            </ListItem>
+          </List>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 };
