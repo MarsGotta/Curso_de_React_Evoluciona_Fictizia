@@ -1,0 +1,10 @@
+.AppResultWrapper {
+  width: 96vw;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 30px 0 0 3vw;
+}
