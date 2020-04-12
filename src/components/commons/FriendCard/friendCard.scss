@@ -6,6 +6,11 @@
   padding: 1%;
   margin-bottom: 12px;
   box-shadow: 2px 1px 6px silver;
+  &:hover {
+    cursor: pointer;
+    background-color: #bebebe4d;
+    transition: background-color 0.3s ease-in-out;
+  }
   &__principal {
     display: flex;
     width: 100%;

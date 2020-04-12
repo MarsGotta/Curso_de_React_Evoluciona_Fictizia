@@ -1,0 +1,16 @@
+.searchFriend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  &__search {
+    border-radius: 12px;
+    border: 1.3px solid #cacaca;
+    margin: 41px 0;
+    width: 30%;
+    padding: 0.4%;
+    outline: none;
+  }
+  &__icon {
+    width: 2%;
+  }
+}
