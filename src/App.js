@@ -3,7 +3,8 @@ import AppResult from "./compontens/AppResult.js";
 import AppSearch from "./compontens/AppSearch.js";
 import useApi from "./hooks/useApi.js";
 import "./styles.css";
-
+import { Button } from '@material-ui/core';
+import AppCard from './compontens/AppCard';
 function filterFriends(searchText, data) {
   return data.filter(friend => {
     if (friend.name.first.toLowerCase().includes(searchText)) {
@@ -25,11 +26,16 @@ export default function App() {
     setFilteredFriends(filterFriends(e.target.value, data));
   };
 
+
   return (
     <div className="App">
       <h1>Lista de Amigos!</h1>
       <AppSearch textChange={handleSearchChange} />
       <AppResult friends={filteredFriends} />
+      <AppCard></AppCard>
+      <Button variant="contained" color="primary">
+        Hello World
+      </Button>
     </div>
   );
 }
