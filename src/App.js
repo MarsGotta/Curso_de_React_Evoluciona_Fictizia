@@ -33,9 +33,6 @@ export default function App() {
       <AppSearch textChange={handleSearchChange} />
       <AppResult friends={filteredFriends} />
       <AppCard></AppCard>
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
     </div>
   );
 }
