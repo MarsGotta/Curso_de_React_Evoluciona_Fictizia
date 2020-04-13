@@ -6,6 +6,7 @@ const useApi = url => {
   const [error, setError] = useState("");
   const [pending, setPeding] = useState(false);
 
+  console.log("entra por useApi")
   const doFetch = async () => {
     setPeding(true);
     try {
@@ -20,7 +21,7 @@ const useApi = url => {
 
   useEffect(() => {
     doFetch();
-  });
+  }, []);
 
   return {
     data,
