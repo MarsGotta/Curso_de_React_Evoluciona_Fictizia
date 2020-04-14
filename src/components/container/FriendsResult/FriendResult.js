@@ -5,7 +5,7 @@ import "./friendResult.scss";
 const FriendResult = ({ friendsState }) => {
   return (
     <div className="friendResult">
-      {friendsState.map((friend, i) => (
+      {friendsState?.map((friend, i) => (
         <FriendCard key={`friend-${i}`} friend={friend} />
       ))}
     </div>
