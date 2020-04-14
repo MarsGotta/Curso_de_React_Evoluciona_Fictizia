@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 const useApi = (url, options) => {
@@ -6,8 +6,7 @@ const useApi = (url, options) => {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const doFetch = async () => {
+  const doFetch = useCallback(async () => {
     setPending(true);
     try {
       const response = await axios.get(url);
@@ -17,11 +16,11 @@ const useApi = (url, options) => {
     } finally {
       setPending(false);
     }
-  };
+  },[url]);
+
   useEffect(() => {
     doFetch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [doFetch]);
 
   return {
     data,
