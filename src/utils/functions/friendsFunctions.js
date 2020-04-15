@@ -1,3 +1,5 @@
+import { emojis } from "../variables";
+
 const filteredFriend = (text, friends) => {
   return friends.filter(({ name: { first, last } }) => {
     if (first.toLowerCase().includes(text)) {
@@ -10,4 +12,6 @@ const filteredFriend = (text, friends) => {
   });
 };
 
-export { filteredFriend };
+const randomEmoji = () => emojis[Math.floor(Math.random() * (emojis.length))];
+
+export { filteredFriend, randomEmoji };

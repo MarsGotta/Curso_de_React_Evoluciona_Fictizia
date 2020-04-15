@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { SearchFriend } from "../../commons";
+import { SearchFriend, Loading } from "../../commons";
 import { FriendResult } from "../../container";
 import useApi from "../../../hooks/useApi";
+import { urlApi } from "../../../utils/variables";
 import { filteredFriend } from "../../../utils/functions/friendsFunctions";
 import "./friendsContainer.scss";
 
 const FriendsContainer = () => {
+  
   const [friendsState, setFriends] = useState(null);
 
   const handleSearch = (e) => {
@@ -13,9 +15,7 @@ const FriendsContainer = () => {
     setFriends(filteredFriend(text, data));
   };
 
-  const { data, error, pending, refetch } = useApi(
-    "https://www.mocky.io/v2/5e8dc38f310000f7f8429be4"
-  );
+  const { data, error, pending } = useApi(urlApi);
 
   useEffect(() => {
     setFriends(filteredFriend("", data));
@@ -23,9 +23,8 @@ const FriendsContainer = () => {
 
   return (
     <div className="friendsContainer">
-      {pending && <p>LOADING</p>}
       <SearchFriend handleSearch={handleSearch} />
-      <FriendResult friendsState={friendsState} />
+      {pending ? <Loading /> : <FriendResult friendsState={friendsState} />}
     </div>
   );
 };
