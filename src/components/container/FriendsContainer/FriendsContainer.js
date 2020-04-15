@@ -10,27 +10,38 @@ import {
 import "./friendsContainer.scss";
 
 const FriendsContainer = () => {
-  const [friendsState, setFriends] = useState(null);
+  const [dataApi, setDataApi] = useState(null); //Next step variable in redux or contextApi
+  const [friends, setFriends] = useState(null);
+  const [emoji] = useState(randomEmoji());
 
   const handleSearch = (e) => {
     let text = e.target.value;
-    setFriends(filteredFriend(text, data));
+    setFriends(filteredFriend(text, dataApi));
   };
 
   const { data, error, pending } = useApi(urlApi);
 
   useEffect(() => {
-    setFriends(filteredFriend("", data));
+    setDataApi(data);
   }, [data]);
+  useEffect(() => {
+    dataApi && setFriends(filteredFriend("", dataApi));
+  }, [dataApi]);
 
   return (
     <div className="friendsContainer">
-      <h1>
-        Welcome to your Friend's List! {randomEmoji()}
-        {randomEmoji()}
-      </h1>
+      <h1>Welcome to your Friend's List! {emoji}</h1>
       <SearchFriend handleSearch={handleSearch} />
-      {pending ? <Loading /> : <FriendResult friendsState={friendsState} />}
+      {pending ? (
+        <Loading />
+      ) : (
+        <FriendResult
+          dataApi={dataApi}
+          setDataApi={setDataApi}
+          friends={friends}
+        />
+      )}
+      {error && <p>We have an internal problem 😓 try it later!</p>}
     </div>
   );
 };
