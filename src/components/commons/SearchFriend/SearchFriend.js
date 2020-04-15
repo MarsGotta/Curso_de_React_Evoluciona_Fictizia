@@ -7,6 +7,7 @@ const SearchFriend = ({ handleSearch }) => {
     <div className="searchFriend">
       <img className="searchFriend__icon" src={search} alt="search icon" />
       <input
+        placeholder="Search a friend ..."
         className="searchFriend__search"
         type="text"
         onChange={(e) => {
