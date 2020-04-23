@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SearchFriend, Loading } from "../../commons";
+import { SearchFriend, Loading, Error } from "../../commons";
 import { FriendResult } from "../../container";
 import useApi from "../../../hooks/useApi";
 import { urlApi } from "../../../utils/variables";
@@ -41,7 +41,7 @@ const FriendsContainer = () => {
           friends={friends}
         />
       )}
-      {error && <p>We have an internal problem 😓 try it later!</p>}
+      {error && <Error />}
     </div>
   );
 };

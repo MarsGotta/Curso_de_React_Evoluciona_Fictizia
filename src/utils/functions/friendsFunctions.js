@@ -1,7 +1,6 @@
 import { emojis } from "../variables";
 
 const filteredFriend = (text, friends) => {
-  console.log(friends)
   return friends.filter(({ name: { first, last } }) => {
     if (first.toLowerCase().includes(text.toLowerCase())) {
       return true;

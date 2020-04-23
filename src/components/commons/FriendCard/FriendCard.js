@@ -1,35 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
+import { Comment } from "../../commons";
 import profile from "../../../static/images/profile.jpg";
-import { randomEmoji } from "../../../utils/functions/friendsFunctions";
 import "./friendCard.scss";
 
 const FriendCard = ({ friend, dataApi, setDataApi }) => {
-  // let pru = dataApi.filter(data=>data._id===friend._id);
-  // console.log(pru[0]["likes"]="sandra")
-  // console.log(pru)
-  const { name, age, tags, phone, address, isActive } = friend;
-  const comment = useRef(null);
+  const { name, age, tags, phone, address, isActive, emojis } = friend;
+
   let active = isActive && "active";
 
-  const handleClick = () => {
-    let friendObject = dataApi?.map((data) => {
-      if (data._id === friend._id) {
-        if (data.comments) {
-          console.log(data.comments);
-          data.comments.push(comment.current.value);
-          return data;
-        } else {
-          return { ...data, comments: [comment.current.value] };
-        }
-      } else {
-        return data;
-      }
-    });
-    setDataApi(friendObject);
-    comment.current.value = "";
-  };
-
-  //console.log(dataApi)
   return (
     <div className="friendCard">
       <div className="principal">
@@ -52,7 +30,7 @@ const FriendCard = ({ friend, dataApi, setDataApi }) => {
           <div className="principal__col2__tags">
             {tags.map((tag, i) => (
               <p className="tag" key={`tag-${i}`}>
-                {randomEmoji()}#{tag}
+                {emojis[i]}#{tag}
               </p>
             ))}
           </div>
@@ -62,19 +40,7 @@ const FriendCard = ({ friend, dataApi, setDataApi }) => {
         <p>{address}</p>
         <p>{phone}</p>
       </div>
-      <input type="text" ref={comment} placeholder="add comment" />
-      <button onClick={() => handleClick()}>Send</button>
-      <div>Comments:</div>
-      {
-        <p>
-          {console.log(dataApi[0].comments, dataApi[1].comments)}
-          {dataApi?.map((data) => {
-            if (data._id === friend._id) {
-              return data.comments?.map((comment) => <p>{comment}</p>);
-            }
-          })}
-        </p>
-      }
+      <Comment setDataApi={setDataApi} dataApi={dataApi} id={friend._id} />
     </div>
   );
 };
