@@ -1,21 +1,47 @@
-import React, { useState } from "react";
-import { SearchFriend } from "../../commons";
+import React, { useState, useEffect } from "react";
+import { SearchFriend, Loading, Error } from "../../commons";
 import { FriendResult } from "../../container";
-import { friends } from "../../../utils/data/friends";
-import { filteredFriend } from "../../../utils/functions/friendsFunctions";
+import useApi from "../../../hooks/useApi";
+import { urlApi } from "../../../utils/variables";
+import {
+  filteredFriend,
+  randomEmoji,
+} from "../../../utils/functions/friendsFunctions";
+import "./friendsContainer.scss";
 
 const FriendsContainer = () => {
+  const [dataApi, setDataApi] = useState(null); //Next step variable in redux or contextApi
+  const [friends, setFriends] = useState(null);
+  const [emoji] = useState(randomEmoji());
+
   const handleSearch = (e) => {
     let text = e.target.value;
-    setFriends(filteredFriend(text, friends));
+    setFriends(filteredFriend(text, dataApi));
   };
 
-  const [friendsState, setFriends] = useState(filteredFriend("", friends));
+  const { data, error, pending } = useApi(urlApi);
+
+  useEffect(() => {
+    setDataApi(data);
+  }, [data]);
+  useEffect(() => {
+    dataApi && setFriends(filteredFriend("", dataApi));
+  }, [dataApi]);
 
   return (
-    <div>
+    <div className="friendsContainer">
+      <h1>Welcome to your Friend's List! {emoji}</h1>
       <SearchFriend handleSearch={handleSearch} />
-      <FriendResult friendsState={friendsState} />
+      {pending ? (
+        <Loading />
+      ) : (
+        <FriendResult
+          dataApi={dataApi}
+          setDataApi={setDataApi}
+          friends={friends}
+        />
+      )}
+      {error && <Error />}
     </div>
   );
 };

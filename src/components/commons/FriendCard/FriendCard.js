@@ -1,37 +1,46 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Comment } from "../../commons";
 import profile from "../../../static/images/profile.jpg";
 import "./friendCard.scss";
 
-const FriendCard = ({ friend }) => {
-  const { name, age, email, phone, address, isActive } = friend;
+const FriendCard = ({ friend, dataApi, setDataApi }) => {
+  const { name, age, tags, phone, address, isActive, emojis } = friend;
+
+  let active = isActive && "active";
+
   return (
     <div className="friendCard">
-      <div className="friendCard__principal">
-        <div className="friendCard__principal__col1">
+      <div className="principal">
+        <div className="principal__col1">
           <img
-            className="friendCard__principal__col1__img"
+            className="principal__col1__img"
             src={profile}
             alt="profile img"
           />
-          <p
-            className={`friendCard__principal__col1__state ${
-              isActive ? "active" : "noActive"
-            }`}
-          >
+          <p className={`principal__col1__state ${active}`}>
             • {isActive ? "active" : "offline"}
           </p>
         </div>
-        <div className="friendCard__principal__col2">
-          <p>{name.first}</p>
-          <p>{name.last}</p>
-          <p>{age}</p>
-          <p>{email}</p>
+        <div className="principal__col2">
+          <p className="principal__col2__profile">
+            <span className="firstName">{name.first} </span>
+            <span className="lastName">{name.last}, </span>
+            <span className="age">{age}</span>
+          </p>
+          <div className="principal__col2__tags">
+            {tags.map((tag, i) => (
+              <p className="tag" key={`tag-${i}`}>
+                {emojis[i]}#{tag}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
-      <div className="friendCard__info">
+      <div className="info">
         <p>{address}</p>
         <p>{phone}</p>
       </div>
+      <Comment setDataApi={setDataApi} dataApi={dataApi} id={friend._id} />
     </div>
   );
 };
