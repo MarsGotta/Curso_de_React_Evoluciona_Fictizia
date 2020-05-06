@@ -10,16 +10,15 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { green, red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
 import Collapse from '@material-ui/core/Collapse';
-import ShareIcon from "@material-ui/icons/Share";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import useAgeRange from "../../hooks/useAgeRange";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +67,8 @@ const AppFriend = ({ data }) => {
   const iconActive = isActive ? <Videocam /> : <VideocamOff />;
   const classActive = isActive ? "active" : "inactive";
   const styleExpanded = expanded ? "expandOpen" : "expandClose";
+  
+  const ageRange = useAgeRange(age);
 
   return (
     <Card className={classes.root}>
@@ -89,6 +90,9 @@ const AppFriend = ({ data }) => {
         <List>
           <ListItem>
             <ListItemText primary="Edad" secondary={age} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Categoría edad" secondary={ageRange} />
           </ListItem>
           <ListItem>
             <ListItemText primary="Email" secondary={email} />

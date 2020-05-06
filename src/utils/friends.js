@@ -126,7 +126,7 @@ var friends = [
       "isActive": false,
       "balance": "$1,138.41",
       "picture": "http://placehold.it/32x32",
-      "age": 32,
+      "age": 50,
       "name": {
         "first": "Hopkins",
         "last": "Snyder"
@@ -1126,7 +1126,7 @@ var friends = [
       "isActive": true,
       "balance": "$1,158.71",
       "picture": "http://placehold.it/32x32",
-      "age": 31,
+      "age": 50,
       "name": {
         "first": "Sonja",
         "last": "Bradford"
