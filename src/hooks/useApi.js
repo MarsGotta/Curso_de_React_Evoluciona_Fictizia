@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback  } from "react";
 import axios from "axios";
 
 const useApi = url => {
@@ -6,8 +6,9 @@ const useApi = url => {
   const [error, setError] = useState("");
   const [pending, setPeding] = useState(false);
 
-  console.log("entra por useApi")
-  const doFetch = async () => {
+  
+  const doFetch = useCallback (async () => {
+    console.log("entra por useApi")
     setPeding(true);
     try {
       const response = await axios.get(url);
@@ -17,11 +18,11 @@ const useApi = url => {
     } finally {
       setPeding(false);
     }
-  };
+  },[url]);
 
   useEffect(() => {
     doFetch();
-  }, []);
+  }, [doFetch]);
 
   return {
     data,
