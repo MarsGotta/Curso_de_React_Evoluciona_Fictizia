@@ -19,6 +19,7 @@ const blurWindow = () => {
     video.classList.add("videoToMuted");
     video.pause();
   });
+
 };
 
 const useEventListenerTabVideo = (element = window) => {
